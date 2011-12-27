@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>questions</key>
+	<array>
+		<dict>
+			<key>HORIZONTAL_SPREAD</key>
+			<integer>300</integer>
+			<key>VERTICAL_SPREAD</key>
+			<integer>45</integer>
+			<key>answers</key>
+			<array>
+				<dict>
+					<key>answer</key>
+					<string>Yes</string>
+					<key>answerID</key>
+					<string>5aa23bb0-e8f9-487f-915f-b28950728bae</string>
+					<key>childrenQuestions</key>
+					<array>
+						<integer>1</integer>
+						<integer>2</integer>
+						<integer>4</integer>
+					</array>
+				</dict>
+				<dict>
+					<key>answer</key>
+					<string>No</string>
+					<key>answerID</key>
+					<string>86a77ef2-305d-4fb1-bc22-1cbf4981eca8</string>
+					<key>childrenQuestions</key>
+					<array>
+						<integer>1</integer>
+						<integer>2</integer>
+					</array>
+				</dict>
+			</array>
+			<key>columns</key>
+			<integer>2</integer>
+			<key>dependent</key>
+			<false/>
+			<key>greeting</key>
+			<string>Please take a moment to answer a few questions so we can provide you with more relevant information.</string>
+			<key>max</key>
+			<integer>3</integer>
+			<key>min</key>
+			<integer>1</integer>
+			<key>question</key>
+			<string>Do you want to continue</string>
+			<key>type</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+</dict>
+</plist>

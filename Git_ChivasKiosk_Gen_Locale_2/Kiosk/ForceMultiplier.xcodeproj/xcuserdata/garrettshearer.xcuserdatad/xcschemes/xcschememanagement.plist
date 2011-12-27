@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>FM Kiosk Ad Hoc.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Force Multiplier Concierge.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Force Multiplier Kiosk.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>95143DBB138ABA4500102446</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533C1C138575E200B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533C39138575E300B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533C521385787F00B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533C781385789300B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533C8D13857B0B00B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533CA813857B2D00B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533CC113857B2D00B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533D181385CF7100B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95533D351385CF7200B59ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9554521B1370E3310064F598</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9554523E1370E3330064F598</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
