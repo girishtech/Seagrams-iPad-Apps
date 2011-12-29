@@ -286,7 +286,7 @@
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUINormalTitle">Get People</string>
+										<string key="IBUINormalTitle">Get Events</string>
 										<reference key="IBUIHighlightedTitleColor" ref="1008959463"/>
 										<reference key="IBUINormalTitleColor" ref="1008959463"/>
 										<reference key="IBUINormalTitleShadowColor" ref="336285861"/>
@@ -390,7 +390,6 @@
 						<string key="NSFrame">{{259, 84}, {526, 105}}</string>
 						<reference key="NSSuperview" ref="326213686"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -435,7 +434,6 @@
 				<string key="NSFrameSize">{135, 21}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<int key="IBUIContentMode">7</int>

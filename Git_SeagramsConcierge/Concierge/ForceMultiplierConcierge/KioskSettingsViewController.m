@@ -90,6 +90,14 @@
     [[[self gridController] theTableView] reloadData];
     modeControl.selectedSegmentIndex = [[da getMode]integerValue];
     [self fetchRecordCount];
+    
+    ForceMultiplierConciergeAppDelegate *appDelegate = (ForceMultiplierConciergeAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    UIScrollView *scrollvw = (UIScrollView*)[[appDelegate rootVC] scrollView];
+    [scrollvw setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
+
+    
+    
 }
 
 - (void)viewDidUnload

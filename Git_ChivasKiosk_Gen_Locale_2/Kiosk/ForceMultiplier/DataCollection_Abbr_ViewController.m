@@ -811,7 +811,7 @@ BOOL keyBoardIsOpen1;
             email.highlighted = YES;
             return NO;
         }
-        if (self.dob.titleLabel.text==nil || [self.dob.titleLabel.text isEqualToString:@""]) {
+        if (self.dob.titleLabel.text==nil || [[self.dob.titleLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
             [[appDelegate rootVC]showErrorMessage:@"Please enter a valid date of birth."];
             return NO;
         }

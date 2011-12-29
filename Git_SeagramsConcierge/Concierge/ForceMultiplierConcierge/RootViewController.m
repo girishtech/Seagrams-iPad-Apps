@@ -134,8 +134,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
-    [self.scrollView setScrollEnabled:NO];
+    [(UIScrollView*)self.scrollView setContentOffset:CGPointMake(0.0f, 0.0f) animated:NO];
+    //[self.scrollView setScrollEnabled:NO];
     
     [self _layoutPage];
     version.text = [NSString stringWithFormat:@"Version: %@",CURRENTVERSION];
@@ -327,7 +327,9 @@
     if([(NSString*)NSStringFromClass([viewController class]) isEqualToString:@"UINavigationController"])
     {
         [[[viewController viewControllers]objectAtIndex:0]updateDisplay];
+        [self.syncPullBtn setTitle:@"Get People" forState:UIControlStateNormal];
     }else{
+        [self.syncPullBtn setTitle:@"Get Events" forState:UIControlStateNormal];
         [viewController updateDisplay];
     }
 }

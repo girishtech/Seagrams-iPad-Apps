@@ -11,7 +11,7 @@
 
 @implementation LoginViewController
 
-@synthesize settingsVC,user,pass,currentTextField, da;
+@synthesize settingsVC,user,pass,currentTextField,keyboardIsShown , da;
 
 BOOL keyBoardIsOpen;
 
@@ -152,18 +152,28 @@ BOOL keyBoardIsOpen;
 
 #pragma mark - IBActions
 
+
+- (void) loginnow {
+
+}
+
 - (IBAction)login
 {
+//    self.keyboardIsShown = NO;
+//    [self keyboardDidHide:nil];
+    //[user resignFirstResponder];
+    //[pass resignFirstResponder];
     ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate.rootVC lockScreen];
     
     [da loginWithUser:self.user.text Password:self.pass.text forVC:self];
+    
 } 
 
 #pragma keyboard notifications
 
 - (void) keyboardFrameChangeNotification :(NSNotification*) notification {
-    if (keyboardIsShown) {
+    if (!self.keyboardIsShown) {
         [self keyboardDidShow:notification];
     } else {
         [self keyboardDidHide:notification];
@@ -174,18 +184,18 @@ BOOL keyBoardIsOpen;
 -(void) keyboardDidShow:(NSNotification *) notification 
 {
     //implement if needed
-    keyboardIsShown = YES;
+    self.keyboardIsShown = YES;
 }
 
 -(void) keyboardDidHide:(NSNotification *) notification 
 {
     
     NSLog(@"keyboardDidHide with notification: %@",notification);
-    if(keyboardIsShown == NO) NSLog(@"keyboard not shown");
+    if(self.keyboardIsShown == NO) NSLog(@"keyboard not shown");
     if(![currentTextField isFirstResponder]) NSLog(@"textfield not firstResponder");
     
     //CGPoint currentOffset;
-    if(keyboardIsShown == YES && ![currentTextField isFirstResponder]){
+    if(self.keyboardIsShown == YES && ![currentTextField isFirstResponder]){
         //Uncomment to enable auto scroll
         //*
         ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -196,7 +206,7 @@ BOOL keyBoardIsOpen;
         //*//*
         
         // [masterScroll setContentOffset:0.0 animated:YES];
-        keyboardIsShown = NO;
+        self.keyboardIsShown = NO;
     }
     
         

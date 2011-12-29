@@ -453,8 +453,7 @@ BOOL keyBoardIsOpen;
 #pragma keyboard notifications
 
 - (void) keyboardFrameChangeNotification :(NSNotification*) notification {
-    keyBoardIsOpen = !keyBoardIsOpen;
-    if (keyboardIsShown) {
+    if (!keyboardIsShown) {
         [self keyboardDidShow:notification];
     } else {
         [self keyboardDidHide:notification];

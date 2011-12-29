@@ -103,6 +103,10 @@
     version.text = [NSString stringWithFormat:@"Version: %@",CURRENTVERSION];
     webAddress.text = [[appDelegate web] WS_URL];
 
+    UIScrollView *masterScroll = [[appDelegate rootVC] scrollView];
+    CGPoint offset = CGPointMake(0.0, 0.0);
+    //currentOffset = [masterScroll contentOffset];
+    [masterScroll setContentOffset:offset animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

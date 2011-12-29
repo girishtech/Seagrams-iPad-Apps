@@ -78,6 +78,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
+    //[[appDelegate rootVC] ]
     [super viewWillAppear:animated];
     
 }
