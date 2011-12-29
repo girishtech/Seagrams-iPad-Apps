@@ -13,6 +13,8 @@
 
 @implementation DataCollection_Full_ViewController
 
+BOOL keyBoardIsOpen;
+
 @synthesize firstName,lastName,email,confirmEmail,telephone_1,telephone_2,telephone_3,day,month,year,address_1,address_2,city,state,zip,optIn,content,isEditing,keyboardIsShown,person,person_update,person_archive,context,disclaimerText,currentOffset,popoverY,rightSide,disclaimer,next_btn,addressBox,currentPicker,states,popoverShown,popoverBuilding,accountName, dob;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -119,14 +121,15 @@
     CGSize scrollContentSize = CGSizeMake(frame.size.width, (frame.size.height*2));
     [[[appDelegate rootVC] scrollView] setContentSize:scrollContentSize];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidHide:)
+//                                                 name:UIKeyboardDidHideNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidShow:)
+//                                                 name:UIKeyboardDidShowNotification
+//                                               object:nil];
+//     
     
     
     
@@ -169,6 +172,11 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    keyBoardIsOpen = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardFrameChangeNotification:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
    
         [super viewDidAppear:animated];
         [self _layoutPage];
@@ -443,6 +451,15 @@
 #pragma mark -
 
 #pragma keyboard notifications
+
+- (void) keyboardFrameChangeNotification :(NSNotification*) notification {
+    keyBoardIsOpen = !keyBoardIsOpen;
+    if (keyboardIsShown) {
+        [self keyboardDidShow:notification];
+    } else {
+        [self keyboardDidHide:notification];
+    }
+}
 
 -(void) keyboardDidShow:(NSNotification *) notification 
 {
@@ -887,6 +904,26 @@
     // For US English, the output is:
     // newDateString 10:30 on Sunday July 11
 }
+-(BOOL)numberValid:(UITextField*)textField
+{
+    BOOL valid=NO;
+    for(int j=0;j<[textField.text length];j++)
+	{
+		NSInteger i =[textField.text characterAtIndex:j];
+		
+		if(i<48 || i>57)
+		{
+            valid=NO;
+            
+			
+		}
+        else{
+            valid=YES;
+            
+        }
+	}
+    return valid;
+}
 
 -(Boolean)validateFields
 {
@@ -913,6 +950,12 @@
         }
         if (self.dob.titleLabel.text==nil || [self.dob.titleLabel.text isEqualToString:@""]) {
             [[appDelegate rootVC]showErrorMessage:@"Please enter a valid date of birth."];
+            return NO;
+        }
+        if(![self numberValid:self.zip])
+        {
+            [[appDelegate rootVC]showErrorMessage:@"Please enter a valid date of birth."];
+        
             return NO;
         }
 
@@ -989,7 +1032,7 @@
 //            return NO;
 //        }
         if([state.text isEqualToString:@""]){
-            [[appDelegate rootVC]showErrorMessage:@"Please enter a state."];
+            [[appDelegate rootVC]showErrorMessage:@"Please enter 2 lettered abbrevated state code."];
             [state becomeFirstResponder];
             state.highlighted = YES;
             return NO;
@@ -1348,6 +1391,17 @@
     [popOverControllerWithPicker dismissPopoverAnimated:NO];
     [address_1 becomeFirstResponder];
 }
+#pragma digit limitvalidatio
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(textField==self.telephone_3){
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 4) ? NO : YES;
+    }
+    else{
+        return YES;
+    }
+}
+
 
 -(NSDate*) parseDateString1:(NSString*)aDateString{
     NSLog(@"a DateString: %@",aDateString);

@@ -212,8 +212,14 @@
 
 -(UIButton*)buildCheckBox:(BOOL)selected forColumn:(NSString*)column Row:(NSNumber*)row
 {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+    if(!selected)
+    {
+       [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateNormal]; 
+    }
+   
     [btn setImage:[UIImage imageNamed:@"OptIn_Selected.png"] forState:UIControlStateSelected];
+    
     [btn setImage:[UIImage imageNamed:@"OptIn_Selected.png"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateDisabled];
@@ -221,7 +227,7 @@
     if(selected){
         btn.selected = YES;
     }else{
-        btn.selected = NO;
+        btn.selected =NO;
     }
     btn.tag = [row integerValue];
     if([column isEqualToString:@"Attended"]){

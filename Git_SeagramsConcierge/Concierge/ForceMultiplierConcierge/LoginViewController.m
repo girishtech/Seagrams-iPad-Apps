@@ -49,15 +49,15 @@
     
     //Subscribe to Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
+                                             selector:@selector(keyboardFrameChangeNotification:)
+                                                 name:UIKeyboardDidChangeFrameNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-
-    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidShow:)
+//                                                 name:UIKeyboardDidShowNotification
+//                                               object:nil];
+//
+//    
 }
 
 - (void)viewDidUnload
@@ -154,6 +154,14 @@
 } 
 
 #pragma keyboard notifications
+
+- (void) keyboardFrameChangeNotification :(NSNotification*) notification {
+    if (!keyboardIsShown) {
+        [self keyboardDidShow:notification];
+    } else {
+        [self keyboardDidHide:notification];
+    }
+}
 
 - (void) keyboardDidShow:(NSNotification *) notification 
 {

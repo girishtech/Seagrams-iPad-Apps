@@ -235,14 +235,21 @@
 
 -(UIButton*)buildCheckBox:(BOOL)selected forColumn:(NSString*)column Row:(NSNumber*)row
 {
+    NSLog(@"");
+    NSLog(@"tap for selectionnnnnnnnnnnnnnnnnnnnn");
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+    if(!selected)
+    {
+        [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateNormal]; 
+    }
+
     [btn setImage:[UIImage imageNamed:@"OptIn_Selected.png"] forState:UIControlStateSelected];
     [btn setImage:[UIImage imageNamed:@"OptIn_Selected.png"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateDisabled];
     [btn setImage:[UIImage imageNamed:@"OptIn_NotSelected.png"] forState:UIControlStateReserved];
     if(selected){
-        btn.selected = YES;
+        btn.selected =YES;
     }else{
         btn.selected = NO;
     }
@@ -674,25 +681,49 @@
    
     if(btn == [filterBtns objectAtIndex:0])
     {
-        [[filterBtns objectAtIndex:0] setSelected:YES];
+        if ([[filterBtns objectAtIndex:0] isSelected]) {
+            [[filterBtns objectAtIndex:0] setSelected:NO];
+        } else {
+            [[filterBtns objectAtIndex:0] setSelected:YES];
+        }
+        
     }
     else if(btn == [filterBtns objectAtIndex:1])
     {
-        [[filterBtns objectAtIndex:1] setSelected:YES];
+        if ([[filterBtns objectAtIndex:1] isSelected]) {
+            [[filterBtns objectAtIndex:1] setSelected:NO];
+        } else {
+            [[filterBtns objectAtIndex:1] setSelected:YES];
+        }
     }
     else if(btn == [filterBtns objectAtIndex:2])
     {
-        [[filterBtns objectAtIndex:2] setSelected:YES];
+        if ([[filterBtns objectAtIndex:2] isSelected]) {
+            [[filterBtns objectAtIndex:2] setSelected:NO];
+        } else {
+            [[filterBtns objectAtIndex:2] setSelected:YES];
+        }
+        //[[filterBtns objectAtIndex:2] setSelected:YES];
     }
     else
     if(btn == [filterBtns objectAtIndex:3])
     {
-        [[filterBtns objectAtIndex:3] setSelected:YES];
+        if ([[filterBtns objectAtIndex:3] isSelected]) {
+            [[filterBtns objectAtIndex:3] setSelected:NO];
+        } else {
+            [[filterBtns objectAtIndex:3] setSelected:YES];
+        }
+        //[[filterBtns objectAtIndex:3] setSelected:YES];
         
     }
     else if(btn == [filterBtns objectAtIndex:4])
     {
-        [[filterBtns objectAtIndex:4] setSelected:YES];
+        if ([[filterBtns objectAtIndex:4] isSelected]) {
+            [[filterBtns objectAtIndex:4] setSelected:NO];
+        } else {
+            [[filterBtns objectAtIndex:4] setSelected:YES];
+        }
+        //[[filterBtns objectAtIndex:4] setSelected:YES];
         
     }/*
     else if(btn == [filterBtns objectAtIndex:4])

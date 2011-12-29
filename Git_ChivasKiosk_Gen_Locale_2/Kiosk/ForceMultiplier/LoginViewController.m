@@ -13,6 +13,8 @@
 
 @synthesize settingsVC,user,pass,currentTextField, da;
 
+BOOL keyBoardIsOpen;
+
 // shahab open
 - (ForceMultiplierAppDelegate*) appDelegate {
     return (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication]delegate];
@@ -53,7 +55,8 @@
     textFields = [NSArray arrayWithObjects:user,pass,nil];
     ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication]delegate];
     [[appDelegate rootVC] hideErrorMessage];
-    
+   
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
@@ -62,6 +65,9 @@
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
                                                object:nil];
+     */
+    
+     
 }
 
 - (void)viewDidUnload
@@ -85,7 +91,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    keyBoardIsOpen = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardFrameChangeNotification:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
+
     //[self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -150,6 +161,15 @@
 } 
 
 #pragma keyboard notifications
+
+- (void) keyboardFrameChangeNotification :(NSNotification*) notification {
+    if (keyboardIsShown) {
+        [self keyboardDidShow:notification];
+    } else {
+        [self keyboardDidHide:notification];
+    }
+    
+}
 
 -(void) keyboardDidShow:(NSNotification *) notification 
 {

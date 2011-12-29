@@ -14,6 +14,8 @@
 
 @synthesize content,firstName,lastName,day,month,year,email,telephone_1,telephone_2,telephone_3,zip,accountName,optIn,next_btn,disclaimer,isEditing,keyboardIsShown,context,person,person_update,person_archive,disclaimerText,currentOffset,popoverY,rightSide,popoverShown, dob;
 
+BOOL keyBoardIsOpen1;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,6 +50,11 @@
     [super viewDidAppear:animated];
     [self _layoutPage];
     optIn.selected = YES;
+    keyBoardIsOpen1 = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardFrameChangeNotification:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -58,6 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    firstName.delegate=self;
     
     /*
     firstName.text = @"a";
@@ -90,7 +98,7 @@
     CGSize scrollContentSize = CGSizeMake(frame.size.width, (frame.size.height*2));
     UIScrollView *scroll = [[appDelegate rootVC] scrollView];
     [scroll setContentSize:scrollContentSize];
-    
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
@@ -99,6 +107,17 @@
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
                                                object:nil];
+    
+     */
+    
+   
+//    [NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//     
+
+
      
     
     
@@ -122,6 +141,7 @@
 	popOverControllerWithPicker.popoverContentSize = CGSizeMake(300, 216);
     
     [self _layoutPage];
+    
 }
 
 - (void)viewDidUnload
@@ -304,18 +324,32 @@
 
 #pragma keyboard notifications
 
+- (void) keyboardFrameChangeNotification :(NSNotification*) notification {
+//    ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
+//    UIScrollView *masterScroll = [[appDelegate rootVC] scrollView];
+//    CGPoint contentOffset = masterScroll.contentOffset;
+//    
+    if (keyboardIsShown) {
+        [self keyboardDidHide:notification];
+    } else {
+        [self keyboardDidShow:notification];
+    }
+}
+
 -(void) keyboardDidShow:(NSNotification *) notification 
 {
     //implement if needed
     keyboardIsShown = YES;
-    //NSDictionary* info = [notification userInfo];
-    //CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    //NSLog(@"keyboard height: %f",kbSize.height);
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    NSLog(@"keyboard height: %f",kbSize.height);
 }
 
 -(void) keyboardDidHide:(NSNotification *) notification 
 {
-    NSLog(@"keyboardDidHide with notification: %@",notification);
+
+    NSLog(@"keyboard hide notification");
+   // NSLog(@"keyboardDidHide with notification: %@",notification);
     if(keyboardIsShown == NO) NSLog(@"keyboard not shown");
      if(![currentTextField isFirstResponder]) NSLog(@"textfield not firstResponder");
     
@@ -323,11 +357,13 @@
     
     //CGPoint currentOffset;
     if(keyboardIsShown == YES && ![currentTextField isFirstResponder]){
+    //if(![currentTextField isFirstResponder]){
         //Uncomment to enable auto scroll
         //*
         ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
         UIScrollView *masterScroll = [[appDelegate rootVC] scrollView];
         CGPoint offset = CGPointMake(0.0, 0.0);
+        NSLog(@"original positionnnnnnnnnnnnnnnnnnnnnnn");
         currentOffset = [masterScroll contentOffset];
         [masterScroll setContentOffset:offset animated:YES];
         //*//*
@@ -374,7 +410,7 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	NSLog(@"textField return");
+	NSLog(@"textFieldShouldReturn ");
     
 		
     //Set 'editing' flag
@@ -409,7 +445,7 @@
     }
 	
 	//Resign focus from current textfield
-    [textField resignFirstResponder];
+    //[textField resignFirstResponder];
 
     if (textField == telephone_3) {
         [NSTimer scheduledTimerWithTimeInterval:0.35 target:self selector:@selector(clickedDOB) userInfo:nil repeats:NO];
@@ -425,7 +461,7 @@
 	NSLog(@"didbeginediting");
 	
 	isEditing = YES;
-    
+    //keyboardIsShown = YES;
     //Find current textfield and return its index
 /*
     if(textField == dob){
@@ -451,6 +487,7 @@
         pt.x = 0;
         if(pt.y >264){ 
             pt.y -= 264;
+            NSLog(@"view downnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
             [masterScroll setContentOffset:pt animated:YES];
         }
    // }
@@ -460,9 +497,15 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    
 	//isEditing = NO;
     ForceMultiplierAppDelegate *appDelegate = (ForceMultiplierAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSLog(@"textfieldbeginedittinguuuuuuuuuuuuuu");
     //[[appDelegate rootVC]hideErrorMessage];
+    
+    
+    //[self keyboardDidHide:nil];
+    //[self textFieldDidBeginEditing:textField];
 }
 
 #pragma mark - 
@@ -685,6 +728,39 @@
     // newDateString 10:30 on Sunday July 11
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(textField==self.telephone_3){
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return (newLength > 4) ? NO : YES;
+    }
+    else{
+        return YES;
+    }
+
+}
+
+-(BOOL)numberValid:(UITextField*)textField
+{
+    for(int j=0;j<[textField.text length];j++)
+	{
+		NSInteger i =[textField.text characterAtIndex:j];
+		
+		if(i<48 || i>57)
+		{
+            return NO;
+
+			
+		}
+        else{
+            return YES;
+        
+        }
+	}
+
+
+    //return YES;
+
+}
 
 -(Boolean)validateFields
 {
@@ -736,9 +812,16 @@
             return NO;
         }
         if (self.dob.titleLabel.text==nil || [self.dob.titleLabel.text isEqualToString:@""]) {
-            [[appDelegate rootVC]showErrorMessage:@"Por favor ingresa una fecha de nacimiento válida."];
+            [[appDelegate rootVC]showErrorMessage:@"Please enter a valid date of birth."];
             return NO;
         }
+        if(!([self numberValid:self.telephone_3]||[self numberValid:self.zip]))
+        {
+            NSLog(@"not valid numberrrrrrr");
+        [[appDelegate rootVC]showErrorMessage:@"Please enter a nummber"];
+            return NO;
+        }
+               
 //        if([month.text isEqualToString:@""]){
 //            [[appDelegate rootVC]showErrorMessage:@"Please enter a valid date of birth."];
 //            [month becomeFirstResponder];
